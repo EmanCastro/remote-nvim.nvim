@@ -161,15 +161,12 @@ function DevpodProvider:_handle_provider_setup()
       ("Checking if the %s provider is present"):format(self._devpod_provider)
     )
     local stdout = self.local_provider.executor:job_stdout()
-    local provider_list_output = vim.json.decode(vim.tbl_isempty(stdout) and "{}" or table.concat(stdout, "\n"))
 
     -- If the provider does not exist, let's create it
-    if not vim.tbl_contains(vim.tbl_keys(provider_list_output), self._devpod_provider) then
-      self.local_provider:run_command(
-        ("%s provider add %s"):format(remote_nvim.config.devpod.binary, self._devpod_provider),
-        ("Adding %s provider to DevPod"):format(self._devpod_provider)
-      )
-    end
+    self.local_provider:run_command(
+      ("%s provider add %s"):format(remote_nvim.config.devpod.binary, self._devpod_provider),
+      ("Adding %s provider to DevPod"):format(self._devpod_provider)
+    )
   end
 end
 
