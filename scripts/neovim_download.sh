@@ -4,9 +4,7 @@
 set -eo pipefail
 
 # Check if either curl or wget is available on the system
-if command -v curl &>/dev/null; then
-	downloader="curl"
-elif command -v wget &>/dev/null; then
+if command -v wget &>/dev/null; then
 	downloader="wget"
 else
 	echo "Error: This script requires either curl or wget to be installed."
@@ -31,9 +29,7 @@ function download() {
 	local url="$1"
 	local output_file="$2"
 
-	if [ "$downloader" = "curl" ]; then
-		curl -fsSL -o "$output_file" "$url"
-	elif [ "$downloader" = "wget" ]; then
+	if [ "$downloader" = "wget" ]; then
 		wget --quiet --output-document="$output_file" "$url"
 	fi
 }
